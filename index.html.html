@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌌 Cicának szeretettel 💜</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            background: #0a0a1a;
+        }
+
+        /* Northern Lights Background */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, #0a0a1a 0%, #1a1a3a 100%);
+        }
+
+        .aurora-wave {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            opacity: 0.3;
+            animation: aurora 15s ease-in-out infinite;
+        }
+
+        .aurora-wave:nth-child(1) {
+            background: linear-gradient(180deg, transparent 0%, #00ff8855 30%, #00ffff44 50%, transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .aurora-wave:nth-child(2) {
+            background: linear-gradient(180deg, transparent 0%, #ff00ff33 30%, #8844ff44 50%, transparent 70%);
+            animation-delay: -5s;
+        }
+
+        .aurora-wave:nth-child(3) {
+            background: linear-gradient(180deg, transparent 0%, #4488ff33 30%, #00ffaa44 50%, transparent 70%);
+            animation-delay: -10s;
+        }
+
+        @keyframes aurora {
+            0%, 100% { transform: translateX(-25%) translateY(-10%) rotate(-5deg); }
+            50% { transform: translateX(-50%) translateY(10%) rotate(5deg); }
+        }
+
+        /* Stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Player Container */
+        .player-container {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+        }
+
+        /* Dedication */
+        .dedication {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .dedication h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 3px;
+        }
+
+        .dedication h2 span {
+            background: linear-gradient(135deg, #88ffcc, #aa88ff, #ff88cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .dedication p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* Album Art */
+        .album-art {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a4a 0%, #2a1a4a 50%, #1a2a3a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 
+                0 20px 50px rgba(100, 200, 255, 0.15),
+                0 0 100px rgba(150, 100, 255, 0.1);
+        }
+
+        .album-art::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00ffaa, #8844ff, #ff44aa, #00ffaa);
+            z-index: -1;
+            animation: rotate-gradient 8s linear infinite;
+            opacity: 0.6;
+        }
+
+        .album-art::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: inherit;
+        }
+
+        @keyframes rotate-gradient {
+            to { transform: rotate(360deg); }
+        }
+
+        .album-art.playing::before {
+            animation: rotate-gradient 3s linear infinite;
+            opacity: 1;
+        }
+
+        .album-emoji {
+            font-size: 70px;
+            z-index: 1;
+            animation: gentle-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Track Info */
+        .track-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .track-title {
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .track-artist {
+            color: rgba(150, 200, 255, 0.7);
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        /* Progress */
+        .progress-container {
+            margin-bottom: 25px;
+            padding: 0 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffaa, #8844ff, #ff88cc);
+            background-size: 200% 100%;
+            animation: gradient-shift 3s ease infinite;
+            border-radius: 2px;
+            width: 0%;
+            position: relative;
+            transition: width 0.1s linear;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 12px;
+        }
+
+        .control-btn:hover {
+            color: #fff;
+            transform: scale(1.15);
+        }
+
+        .play-btn {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(0,255,170,0.2), rgba(136,68,255,0.2));
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background: linear-gradient(135deg, rgba(0,255,170,0.3), rgba(136,68,255,0.3));
+            box-shadow: 0 0 40px rgba(136,68,255,0.3);
+            transform: scale(1.08);
+        }
+
+        /* Volume */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .volume-icon {
+            color: rgba(255,255,255,0.5);
+            font-size: 1rem;
+        }
+
+        .volume-slider {
+            flex: 1;
+            height: 3px;
+            -webkit-appearance: none;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #00ffaa, #8844ff);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(136,68,255,0.5);
+        }
+
+        /* Playlist */
+        .playlist {
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .playlist-header {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .playlist-scroll {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .playlist-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .playlist-scroll::-webkit-scrollbar-thumb {
+            background: rgba(136,68,255,0.3);
+            border-radius: 2px;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .playlist-item:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .playlist-item.active {
+            background: linear-gradient(90deg, rgba(0,255,170,0.1), rgba(136,68,255,0.1));
+        }
+
+        .playlist-item-number {
+            color: rgba(255,255,255,0.2);
+            font-size: 0.85rem;
+            width: 30px;
+            font-weight: 300;
+        }
+
+        .playlist-item.active .playlist-item-number {
+            color: #00ffaa;
+        }
+
+        .playlist-item-info {
+            flex: 1;
+        }
+
+        .playlist-item-title {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+            font-weight: 400;
+        }
+
+        .playlist-item-artist {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.75rem;
+            font-weight: 300;
+        }
+
+        .playlist-item-playing {
+            color: #00ffaa;
+            font-size: 1rem;
+            margin-left: 10px;
+            animation: pulse-glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer p {
+            color: rgba(255,255,255,0.25);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .footer .heart {
+            color: #ff88aa;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .player-container {
+                padding: 35px 25px;
+                border-radius: 30px;
+            }
+            
+            .album-art {
+                width: 150px;
+                height: 150px;
+            }
+
+            .album-emoji {
+                font-size: 55px;
+            }
+
+            .dedication h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Aurora Background -->
+    <div class="aurora-bg">
+        <div class="aurora-wave"></div>
+        <div class="aurora-wave"></div>
+        <div class="aurora-wave"></div>
+    </div>
+
+    <!-- Stars -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Player -->
+    <div class="player-container">
+        <div class="dedication">
+            <h2>🐱 <span>Cicának</span> szeretettel 💜</h2>
+            <p>Karácsony 2025 🎄</p>
+        </div>
+
+        <div class="album-art" id="albumArt">
+            <span class="album-emoji">🌌</span>
+        </div>
+        
+        <div class="track-info">
+            <div class="track-title" id="trackTitle">Válassz egy dalt</div>
+            <div class="track-artist" id="trackArtist">AURORA</div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="time-info">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="control-btn" id="prevBtn">⏮</button>
+            <button class="control-btn play-btn" id="playBtn">▶</button>
+            <button class="control-btn" id="nextBtn">⏭</button>
+        </div>
+
+        <div class="volume-container">
+            <span class="volume-icon">🔊</span>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70">
+        </div>
+
+        <div class="playlist">
+            <div class="playlist-header">✨ AURORA PLAYLIST</div>
+            <div class="playlist-scroll" id="playlistItems"></div>
+        </div>
+
+        <div class="footer">
+            <p>Made with <span class="heart">♥</span> by Attila</p>
+        </div>
+    </div>
+
+    <audio id="audio"></audio>
+
+    <script>
+        // ===========================================
+        // 🎵 PLAYLIST - Dropbox linkeket ide!
+        // ===========================================
+        const playlist = [
+            {
+                title: "Runaway",
+                artist: "AURORA",
+                url: "https://www.dropbox.com/scl/fi/vlir79dvdheixf31pdrvm/01.Runaway.mp3?rlkey=ofpz0qc9gpzx0levo9wt5izf3&st=1h9ujg1e&dl=1"
+            },
+            {
+                title: "Running with the Wolves",
+                artist: "AURORA",
+                url: "https://www.dropbox.com/scl/fi/virjl9bepm5l43z0sfssd/03.Running-With-The-Wolves.mp3?rlkey=he0a06lfhzz9wdftlo4a0koyv&st=887rfyt5&dl=1"
+            },
+            {
+                title: "Running with the Wolves",
+                artist: "AURORA (Pablo Nouvelle Remix)",
+                url: "https://www.dropbox.com/scl/fi/pcpm4uryx2cijxnfjje9s/17.Running-With-The-Wolves-Pablo-Nouvelle-Remix.mp3?rlkey=qd80g8q58g1t262hb7c553t0g&st=i3dhq6nt&dl=1"
+            },
+            {
+                title: "Exist for Love",
+                artist: "AURORA",
+                url: "DROPBOX_LINK"
+            },
+            {
+                title: "Everything Matters",
+                artist: "AURORA feat. Pomme",
+                url: "https://www.dropbox.com/scl/fi/3817f79aw6d0lvijznvaw/02.Everything-Matters-Feat.-Pomme.mp3?rlkey=zomavdfsq0hfab1p2zz4sdiph&st=6636e7l2&dl=1"
+            },
+            {
+                title: "Warrior",
+                artist: "AURORA",
+                url: "DROPBOX_LINK"
+            },
+            {
+                title: "Cure for Me",
+                artist: "AURORA",
+                url: "DROPBOX_LINK"
+            },
+            {
+                title: "Conqueror",
+                artist: "AURORA",
+                url: "https://www.dropbox.com/scl/fi/5ivq47ywi3z7qr07rdkyj/02.Conqueror.mp3?rlkey=48cxnye91aqtzay4490wly1zz&st=mug9k333&dl=1"
+            },
+            {
+                title: "Queendom",
+                artist: "AURORA",
+                url: "DROPBOX_LINK"
+            },
+            {
+                title: "Dreams",
+                artist: "AURORA feat. Nicole Zignago",
+                url: "https://www.dropbox.com/scl/fi/imjdwzo3r090e9ps65rnr/20.Dreams-Feat.-Nicole-Zignago.mp3?rlkey=zde64xu3fbrbxtjddeger9mpz&st=k47mj556&dl=1"
+            },
+            {
+                title: "My Name",
+                artist: "AURORA feat. Ane Brun",
+                url: "https://www.dropbox.com/scl/fi/v23nvctnl7pfyrjars90d/11.My-Name-Feat.-Ane-Brun.mp3?rlkey=kfnxjneiry455jacku1sxgq1e&st=1xya0xk0&dl=1"
+            }
+        ];
+        // ===========================================
+
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = (Math.random() * 2 + 1) + 'px';
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Player Logic
+        const audio = document.getElementById('audio');
+        const playBtn = document.getElementById('playBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const trackTitle = document.getElementById('trackTitle');
+        const trackArtist = document.getElementById('trackArtist');
+        const albumArt = document.getElementById('albumArt');
+        const playlistItemsEl = document.getElementById('playlistItems');
+
+        let currentTrack = 0;
+        let isPlaying = false;
+
+        const emojis = ['🌌', '🐺', '🐺', '💜', '🌱', '🌟', '🦋', '🦅', '✨', '🌙', '🤍'];
+
+        function initPlaylist() {
+            playlistItemsEl.innerHTML = playlist.map((track, index) => `
+                <div class="playlist-item ${index === 0 ? 'active' : ''}" onclick="loadTrack(${index}); playAudio();">
+                    <span class="playlist-item-number">${String(index + 1).padStart(2, '0')}</span>
+                    <div class="playlist-item-info">
+                        <div class="playlist-item-title">${track.title}</div>
+                        <div class="playlist-item-artist">${track.artist}</div>
+                    </div>
+                    <span class="playlist-item-playing" id="playing-${index}" style="display:none;">♪</span>
+                </div>
+            `).join('');
+        }
+
+        function loadTrack(index) {
+            currentTrack = index;
+            const track = playlist[index];
+            
+            audio.src = track.url;
+            trackTitle.textContent = track.title;
+            trackArtist.textContent = track.artist;
+            
+            document.querySelector('.album-emoji').textContent = emojis[index] || '🌌';
+            
+            document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+                document.getElementById(`playing-${i}`).style.display = 'none';
+            });
+            
+            progress.style.width = '0%';
+            currentTimeEl.textContent = '0:00';
+        }
+
+        function playAudio() {
+            audio.play();
+            isPlaying = true;
+            playBtn.textContent = '⏸';
+            albumArt.classList.add('playing');
+            document.getElementById(`playing-${currentTrack}`).style.display = 'inline';
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            isPlaying = false;
+            playBtn.textContent = '▶';
+            albumArt.classList.remove('playing');
+            document.getElementById(`playing-${currentTrack}`).style.display = 'none';
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                pauseAudio();
+            } else {
+                if (!audio.src || audio.src.includes('DROPBOX_LINK')) {
+                    loadTrack(0);
+                }
+                playAudio();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrack);
+            if (isPlaying) playAudio();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentTrack = (currentTrack + 1) % playlist.length;
+            loadTrack(currentTrack);
+            if (isPlaying) playAudio();
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = percent + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('ended', () => {
+            currentTrack = (currentTrack + 1) % playlist.length;
+            loadTrack(currentTrack);
+            playAudio();
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const percent = e.offsetX / progressBar.offsetWidth;
+            audio.currentTime = percent * audio.duration;
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            audio.volume = e.target.value / 100;
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Init
+        audio.volume = 0.7;
+        initPlaylist();
+        loadTrack(0);
+    </script>
+</body>
+</html>
